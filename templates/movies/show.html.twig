@@ -1,0 +1,43 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+<div class="flex flex-wrap py-20 px-4">
+  <div class="w-1/2 pl-3 pb-4 pt-4">
+    <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">{{ movies.title }}</h2>
+    <p class="mt-3 text-gray-800 text-xl">{{ movies.description }}</p><br>
+    <p><b>Released Year:</b> {{ movies.releaseYear}}</p><br> 
+     {% if app.user %}
+      <a 
+        href="/movies/edit/{{ movies.id }}"                
+        class="bg-gray-600 font-bold text-white py-2 px-4 rounded-full  hover:bg-green-300">
+        Edit Movie
+      </a>
+      <a 
+        href="/movies/delete/{{ movies.id }}"
+        class="bg-gray-600 font-bold text-white py-2 px-4 ml-5 rounded-full  hover:bg-red-300">
+        Delete Movie
+      </a> 
+    {% endif %}
+  </div>
+  <div class="h-auto max-w-3xl pt-4 mx-12">
+    <img 
+    src="{{ movies.imagePath }}"
+    class="rounded-lg bg-gray-100"
+    >
+  </div>
+</div>
+
+<h2 class="text-center text-gray-400 font-bolt text-2xl col-span-full rounded-full py-5 pt-6 bg-gray-200">Similar Movies...</h2>
+  {% for similar in similars %}
+    <div class="flex flex-row gap-8 px-10 py-8">
+      <a href="{{ similar.id }}" class="bg-gray-200 border border-gray-300 flex-auto w-1/2 rounded-md">
+        <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">{{ similar.title }}</h2>
+          <p class="mt-2 text-gray-800 text-xl">{{ similar.description }}</p><br>
+          <p><b>Released Year:</b> {{ similar.releaseYear}}</p><br> 
+      </a>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+
